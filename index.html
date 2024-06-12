@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Menu</title>
-   <style type="text/css">
-         body {
+    <title>Menu</title>
+    <style type="text/css">
+        body {
             background: #f0f0f0;
             font-family: Arial, sans-serif;
             color: #333;
             margin: 0;
             padding: 0;
-         }
-         .nav {
+        }
+        .nav {
             background: rgba(51, 51, 51, 0.5); 
             display: flex;
             height: 60px;
@@ -20,26 +20,25 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 10; 
             position: relative;
-         }
-         #logo {
+        }
+        #logo {
             color: rgb(224, 240, 238);
             font-size: 24px;
             text-decoration: none;
-         }
-         
-         .menu {
+        }
+        .menu {
             display: flex;
             align-items: center;
             justify-content: flex-end;
             flex: 1;
             margin-right: 2em;
-         }
-         .menu li {
+        }
+        .menu li {
             list-style: none;
             position: relative;
             margin-left: 20px; 
-         }
-         .menu li a {
+        }
+        .menu li a {
             display: block;
             padding: 0 20px;
             height: 60px;
@@ -49,13 +48,13 @@
             transition: border 0.3s, background-color 0.3s, color 0.3s;
             text-align: center;
             text-decoration: none;
-         }
-         .menu li a:hover {
+        }
+        .menu li a:hover {
             border: 2px solid #ff69b4;
             background-color: #ff69b4;
             color: #333;
-         }
-         .menu_down {
+        }
+        .menu_down {
             background: rgba(85, 85, 85, 0.5); 
             position: absolute;
             top: 60px;
@@ -66,27 +65,27 @@
             padding: 0; 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
             z-index: 20; 
-         }
-         .menu_down li {
+        }
+        .menu_down li {
             text-align: center;
             padding: 10px 0; 
-         }
-         .menu_down li a {
+        }
+        .menu_down li a {
             color: white;
             text-decoration: none;
             transition: background-color 0.3s, color 0.3s;
-         }
-         .menu_down li a:hover {
+        }
+        .menu_down li a:hover {
             background-color: rgba(255, 105, 180, 0.5); /* Giảm opacity để làm mờ màu nền khi hover */
             color: #333;
-         }
-         .menu .menu_link:hover .menu_down {
+        }
+        .menu .menu_link:hover .menu_down {
             display: flex;
-         }
-         #hinh_anh_trang_chu {
+        }
+        #hinh_anh_trang_chu {
             text-align: center;
-         }
-         .video-container {
+        }
+        .video-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -94,13 +93,13 @@
             height: 100vh;
             overflow: hidden;
             z-index: -1; 
-         }
-         .video-container video {
+        }
+        .video-container video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-         }
-         .video-overlay {
+        }
+        .video-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -108,41 +107,284 @@
             height: 100vh;
             background: rgba(0, 0, 0, 0.5); /* Dark overlay */
             z-index: 0;
-         }
-         .content {
+        }
+        .content {
             position: relative;
             z-index: 1;
             color: white;
             text-align: center;
             padding: 20px;
-         }
-   </style>
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #333;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            color: white;
+        }
+        .close{
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #ff69b4;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #ff69b4;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #ff85c0;
+        }
+        .switch-link {
+            color: #ff69b4;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .switch-link:hover {
+            color: #ff85c0;
+        }
+        #hinh_anh_home {
+            position: absolute;
+            top: 55%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        #hinh_anh_home img {
+            max-width: 42%;
+            height: auto;
+            border-radius: 8px;
+        }
+        #p1 {
+            position: absolute;
+            top: 43%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-family: 'ARIAL', Times, serif;
+            font-size: 18px;
+            max-width: 80%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: justify;
+            line-height: 1.5;
+        }
+        #p1 h1 {
+            font-size: 28px;
+            color: #ff69b4;
+            margin-bottom: 10px;
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+        }
+        #p1 strong {
+            font-weight: bold;
+        }
+        #p1 i {
+            font-style: italic;
+        }
+        #p1 br {
+            display: none;
+        }
+        #p1 strong,
+        #p1 i {
+            color: #ff69b4;
+        }
+        #p1 a {
+            color: #ff69b4;
+            text-decoration: none;
+        }
+        #p1 a:hover {
+            text-decoration: underline;
+        }
+        #p1 p {
+            margin-bottom: 15px;
+        }
+        #slideshow-container {
+            position: absolute;
+            top: 55%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: #f0f0f0 1000px;
+            z-index: 1;
+        }
+        #slideshow-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+        }
+        #slideshow-container img.active {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-   <div class="nav">
-      <a href="link_logo" id="logo"><strong> 25/5_MΞMORY<sup>©</sup> </strong></a>
-      <ul class="menu">
-         <li><a href="link1">HOME</a></li>
-         <li><a href="link2">INTRODUCE</a></li>
-         <li class="menu_link">
-            <a href="link3">LOVE</a>
-            <ul class="menu_down">
-              <li><a href="LINK_LK">Part 1</a></li>
-              <li><a href="LINK_LK2">Part 2</a></li>
-              <li><a href="LINK_LK3">Part 3</a></li>
-            </ul>
-         </li>
-         <li><a href="link4">CONTACT</a></li>
-         <li><a href="link5">Login | Sign up</a></li>
-      </ul>
-   </div>
-   <div class="video-container">
-      <video autoplay muted loop playsinline class="video">
-          <source src="video.mp4" type="video/mp4">
-          
-      </video>
-      <div class="video-overlay"></div>
-  </div>
-  
-   </body>
+    <div class="nav">
+        <a href="link_logo" id="logo"><strong> 25/5_MΞMORY<sup>©</sup> </strong></a>
+        <ul class="menu">
+            <li><a href="link1">HOME</a></li>
+            <li><a href="link2">INTRODUCE</a></li>
+            <li class="menu_link">
+                <a href="link3">LOVE</a>
+                <ul class="menu_down">
+                    <li><a href="LINK_LK">Part 1</a></li>
+                    <li><a href="LINK_LK2">Part 2</a></li>
+                    <li><a href="LINK_LK3">Part 3</a></li>
+                </ul>
+            </li>
+            <li><a href="link4">CONTACT</a></li>
+            <li><a href="#" id="loginSignUpBtn">Login | Sign up</a></li>
+        </ul>
+    </div>
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="video">
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="signUpForm">
+                <h2>Sign Up</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="newUsername">Username:</label>
+                        <input type="text" id="newUsername" name="newUsername">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Password:</label>
+                        <input type="password" id="newPassword" name="newPassword">
+                    </div>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+                <p>If you already had an account. <span class="switch-link" id="showLoginForm">LOG IN</span></p>
+            </div>
+            <div id="loginForm" style="display: none;">
+                <h2>Login</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <p>Don't have an account? <span class="switch-link" id="showSignUpForm">Sign Up</span></p>
+            </div>
+        </div>
+    </div>
+    <div id="slideshow-container">
+        <img src="img1.jpg" alt="Image 1" class="active">
+        <img src="img2.jpg" alt="Image 2">
+        <img src="img3.jpg" alt="Image 3">
+    </div>
+    <div id="p1">
+        <h1><center><strong>CHÀO MỪNG ĐẾN VỚI <i> 25/5 MEMORY</i>.</strong></center></h1>
+        <p>🟣 BẠN CÓ THỂ TÌM HIỂU NHIỀU THỨ VỀ <strong> MEMORY CỦA KA VÀ BIN </strong>.</p>
+        <p>🟣 NGOÀI RA BẠN CÒN CÓ THỂ NHỮNG CHIẾC ẢNH RẤT <strong>  CUTE PHÔ MAI QUE</strong>.</p>
+        <p>🟣 HÃY <strong>BẤM VÀO NÚT ĐĂNG KÝ</strong> Ở TRÊN ĐỂ CÓ THỂ <strong>TRẢI NGHIỆM</strong>.</p>
+    </div>
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('#slideshow-container img');
+        const totalSlides = slides.length;
+
+        function showSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+            });
+            slides[slideIndex].classList.add('active');
+            slideIndex = (slideIndex + 1) % totalSlides;
+            setTimeout(showSlides, 3000);
+        }
+
+        showSlides();
+
+        // Modal functionality
+        const modal = document.getElementById("myModal");
+        const btn = document.getElementById("loginSignUpBtn");
+        const span = document.getElementsByClassName("close")[0];
+        const signUpForm = document.getElementById("signUpForm");
+        const loginForm = document.getElementById("loginForm");
+        const showLoginForm = document.getElementById("showLoginForm");
+        const showSignUpForm = document.getElementById("showSignUpForm");
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        showLoginForm.onclick = function() {
+            signUpForm.style.display = "none";
+            loginForm.style.display = "block";
+        }
+
+        showSignUpForm.onclick = function() {
+            loginForm.style.display = "none";
+            signUpForm.style.display = "block";
+        }
+    </script>
+</body>
 </html>
