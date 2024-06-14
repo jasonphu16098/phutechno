@@ -265,24 +265,37 @@
         #slideshow-container img.active {
             opacity: 1;
         }
+        .memory_word img{
+           position: absolute;
+            top: 45%;
+            left: 41%
+        }
+        .hidden-content {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .show-content {
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
     </style>
 </head>
 <body>
     <div class="nav">
         <a href="link_logo" id="logo"><strong> 25/5_MΞMORY<sup>©</sup> </strong></a>
         <ul class="menu">
-            <li><a href="link1">HOME</a></li>
-            <li><a href="link2">INTRODUCE</a></li>
+            <li><a href="#" id="homeLink" class="nav-link">HOME</a></li>
+            <li><a href="link2" class="nav-link">INTRODUCE</a></li>
             <li class="menu_link">
-                <a href="link3">LOVE</a>
+                <a href="link3" class="nav-link">LOVE</a>
                 <ul class="menu_down">
                     <li><a href="LINK_LK">Part 1</a></li>
                     <li><a href="LINK_LK2">Part 2</a></li>
                     <li><a href="LINK_LK3">Part 3</a></li>
                 </ul>
             </li>
-            <li><a href="link4">CONTACT</a></li>
-            <li><a href="#" id="loginSignUpBtn">Login | Sign up</a></li>
+            <li><a href="link4" class="nav-link">GAMES</a></li>
+            <li><a href="#" id="loginSignUpBtn"><font color="#e01d9f">Login | Sign up</font></a></li>
         </ul>
     </div>
     <div class="video-container">
@@ -326,16 +339,21 @@
             </div>
         </div>
     </div>
-    <div id="slideshow-container">
-        <img src="img1.jpg" alt="Image 1" class="active">
-        <img src="img2.jpg" alt="Image 2">
-        <img src="img3.jpg" alt="Image 3">
-    </div>
-    <div id="p1">
-        <h1><center><strong>CHÀO MỪNG ĐẾN VỚI <i> 25/5 MEMORY</i>.</strong></center></h1>
-        <p>🟣 BẠN CÓ THỂ TÌM HIỂU NHIỀU THỨ VỀ <strong> MEMORY CỦA KA VÀ BIN </strong>.</p>
-        <p>🟣 NGOÀI RA BẠN CÒN CÓ THỂ CHIÊM NGƯỠNG NHỮNG CHIẾC ẢNH RẤT <strong>  CUTE PHÔ MAI QUE</strong>.</p>
-        <p>🟣 HÃY <strong>BẤM VÀO NÚT ĐĂNG KÝ</strong> Ở TRÊN ĐỂ CÓ THỂ <strong>TRẢI NGHIỆM</strong>.</p>
+    <div id="contentContainer" class="show-content">
+        <div id="slideshow-container">
+            <img src="img1.jpg" alt="Image 1" class="active">
+            <img src="img2.jpg" alt="Image 2">
+            <img src="img3.jpg" alt="Image 3">
+        </div>
+        <div id="p1">
+            <h1><center><strong>CHÀO MỪNG ĐẾN VỚI <i> 25/5_MEMORY</i>.</strong></center></h1>
+            <p>🟣 BẠN CÓ THỂ TÌM HIỂU NHIỀU THỨ VỀ <strong> MEMORY CỦA KA VÀ BIN </strong>.</p>
+            <p>🟣 NGOÀI RA BẠN CÒN CÓ THỂ CHIÊM NGƯỠNG NHỮNG CHIẾC ẢNH RẤT <strong>  CUTE PHÔ MAI QUE</strong>.</p>
+            <p>🟣 HÃY <strong>BẤM VÀO NÚT ĐĂNG KÝ</strong> Ở TRÊN ĐỂ CÓ THỂ <strong>TRẢI NGHIỆM</strong>.</p>
+        </div>
+        <div class="memory_word">
+            <img src="mem.png" />
+        </div>
     </div>
     <script>
         let slideIndex = 0;
@@ -385,6 +403,28 @@
             loginForm.style.display = "none";
             signUpForm.style.display = "block";
         }
+
+        // Hide content when navigation items are clicked
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentContainer = document.getElementById('contentContainer');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (link.id !== 'homeLink') {
+                    contentContainer.classList.remove('show-content');
+                    contentContainer.classList.add('hidden-content');
+                }
+            });
+        });
+
+        // Show content when HOME is clicked
+        const homeLink = document.getElementById('homeLink');
+        homeLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            contentContainer.classList.remove('hidden-content');
+            contentContainer.classList.add('show-content');
+        });
     </script>
 </body>
 </html>
